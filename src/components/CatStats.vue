@@ -18,11 +18,9 @@
   </div>
 </template>
 
-<script setup>
-import { useCatHabitStore } from '../stores/catHabitStore'
+<script setup lang="ts">
 import { computed } from 'vue'
-
-// ⭐ Import images correctly so Vite can bundle them
+import { useCatHabitStore } from '../stores/catHabitStore'
 import happy from '../assets/cat-happy.png'
 import grumpy from '../assets/cat-grumpy.png'
 import content from '../assets/cat-content.png'
@@ -34,10 +32,9 @@ const progressPercent = computed(() => {
   return Math.round((store.completedHabits / store.totalHabits) * 100)
 })
 
-// ⭐ Use imported images instead of hard-coded /assets paths
 const catImage = computed(() => {
-  if (store.catMood === "😾 Grumpy") return grumpy
-  if (store.catMood === "😺 Content") return content
+  if (store.catMood === '😾 Grumpy') return grumpy
+  if (store.catMood === '😺 Content') return content
   return happy
 })
 </script>
