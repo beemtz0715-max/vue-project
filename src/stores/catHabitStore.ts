@@ -21,29 +21,28 @@ export const useCatHabitStore = defineStore('catHabitStore', {
       const total = state.habits.length
       const completed = state.habits.filter(h => h.completed).length
 
-      if (total === 0) return "😺 Content"
+      if (total === 0) return '😺 Content'
 
       const percent = (completed / total) * 100
 
-      if (percent === 100) return "😸 Happy"
-      if (percent >= 50) return "😺 Content"
-      return "😾 Grumpy"
+      if (percent === 100) return '😸 Happy'
+      if (percent >= 50) return '😺 Content'
+      return '😾 Grumpy'
     }
   },
 
   actions: {
-    // Load saved habits
     loadFromLocalStorage() {
       const saved = localStorage.getItem('habits')
       this.habits = saved ? JSON.parse(saved) : []
     },
 
-    // Save habits
     saveToLocalStorage() {
       localStorage.setItem('habits', JSON.stringify(this.habits))
     },
 
     addHabit(name: string) {
+      if (!name.trim()) return
       this.habits.push({
         id: Date.now(),
         name,
@@ -58,6 +57,11 @@ export const useCatHabitStore = defineStore('catHabitStore', {
         habit.completed = !habit.completed
         this.saveToLocalStorage()
       }
+    },
+
+    deleteHabit(id: number) {
+      this.habits = this.habits.filter(h => h.id !== id)
+      this.saveToLocalStorage()
     },
 
     resetHabits() {
