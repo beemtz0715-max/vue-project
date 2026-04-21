@@ -1,18 +1,20 @@
-<script setup>
+<script setup lang="ts">
+import { onMounted } from 'vue'
 import AddCatHabit from './components/AddCatHabit.vue'
 import CatHabitList from './components/CatHabitList.vue'
 import CatStats from './components/CatStats.vue'
 import { useCatHabitStore } from './stores/catHabitStore'
-
-// ⭐ Correct Vite image import for the logo
 import logo from './assets/logo.png'
 
 const store = useCatHabitStore()
+
+onMounted(() => {
+  store.loadFromLocalStorage()
+})
 </script>
 
 <template>
   <header class="app-header">
-    <!-- ⭐ Use imported logo instead of /src/... -->
     <img :src="logo" class="logo" />
     <h1>Iris & Friends Habit Tracker</h1>
   </header>
@@ -63,7 +65,7 @@ const store = useCatHabitStore()
   padding: 20px;
   margin: 20px 0;
   border-radius: 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-left: 6px solid var(--pink);
 }
 
